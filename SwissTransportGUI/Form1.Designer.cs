@@ -31,16 +31,16 @@
       this.splitContainer1 = new System.Windows.Forms.SplitContainer();
       this.splitContainer2 = new System.Windows.Forms.SplitContainer();
       this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-      this.cmbVon = new System.Windows.Forms.ComboBox();
+      this.splitContainer4 = new System.Windows.Forms.SplitContainer();
       this.lblFahrplan = new System.Windows.Forms.Label();
       this.lblVon = new System.Windows.Forms.Label();
+      this.cmbVon = new System.Windows.Forms.ComboBox();
       this.cmbNach = new System.Windows.Forms.ComboBox();
       this.lblNach = new System.Windows.Forms.Label();
-      this.lstFahrplan = new System.Windows.Forms.ListBox();
+      this.btnFahrplan = new System.Windows.Forms.Button();
+      this.lstFahrplan = new System.Windows.Forms.ListView();
       this.lblVerbindungen = new System.Windows.Forms.Label();
       this.lstVerbindungen = new System.Windows.Forms.ListBox();
-      this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-      this.btnFahrplan = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
@@ -112,18 +112,25 @@
       this.splitContainer3.SplitterDistance = 429;
       this.splitContainer3.TabIndex = 0;
       // 
-      // cmbVon
+      // splitContainer4
       // 
-      this.cmbVon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.cmbVon.DisplayMember = "cmbVon";
-      this.cmbVon.FormattingEnabled = true;
-      this.cmbVon.Location = new System.Drawing.Point(17, 67);
-      this.cmbVon.Name = "cmbVon";
-      this.cmbVon.Size = new System.Drawing.Size(180, 24);
-      this.cmbVon.TabIndex = 3;
-      this.cmbVon.ValueMember = "cmbVon";
-      this.cmbVon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbVon_KeyDown);
+      this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+      this.splitContainer4.Name = "splitContainer4";
+      // 
+      // splitContainer4.Panel1
+      // 
+      this.splitContainer4.Panel1.Controls.Add(this.lblFahrplan);
+      this.splitContainer4.Panel1.Controls.Add(this.lblVon);
+      this.splitContainer4.Panel1.Controls.Add(this.cmbVon);
+      // 
+      // splitContainer4.Panel2
+      // 
+      this.splitContainer4.Panel2.Controls.Add(this.cmbNach);
+      this.splitContainer4.Panel2.Controls.Add(this.lblNach);
+      this.splitContainer4.Size = new System.Drawing.Size(429, 103);
+      this.splitContainer4.SplitterDistance = 214;
+      this.splitContainer4.TabIndex = 0;
       // 
       // lblFahrplan
       // 
@@ -144,6 +151,19 @@
       this.lblVon.Size = new System.Drawing.Size(37, 17);
       this.lblVon.TabIndex = 1;
       this.lblVon.Text = "Von:";
+      // 
+      // cmbVon
+      // 
+      this.cmbVon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.cmbVon.DisplayMember = "cmbVon";
+      this.cmbVon.FormattingEnabled = true;
+      this.cmbVon.Location = new System.Drawing.Point(17, 67);
+      this.cmbVon.Name = "cmbVon";
+      this.cmbVon.Size = new System.Drawing.Size(180, 24);
+      this.cmbVon.TabIndex = 3;
+      this.cmbVon.ValueMember = "cmbVon";
+      this.cmbVon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbVon_KeyDown);
       // 
       // cmbNach
       // 
@@ -168,17 +188,27 @@
       this.lblNach.TabIndex = 2;
       this.lblNach.Text = "Nach:";
       // 
+      // btnFahrplan
+      // 
+      this.btnFahrplan.Location = new System.Drawing.Point(14, 67);
+      this.btnFahrplan.Name = "btnFahrplan";
+      this.btnFahrplan.Size = new System.Drawing.Size(75, 23);
+      this.btnFahrplan.TabIndex = 0;
+      this.btnFahrplan.Text = "Suchen";
+      this.btnFahrplan.UseVisualStyleBackColor = true;
+      this.btnFahrplan.Click += new System.EventHandler(this.btnFahrplan_Click);
+      // 
       // lstFahrplan
       // 
       this.lstFahrplan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.lstFahrplan.FormattingEnabled = true;
-      this.lstFahrplan.ItemHeight = 16;
-      this.lstFahrplan.Location = new System.Drawing.Point(17, 22);
+      this.lstFahrplan.Location = new System.Drawing.Point(17, 24);
       this.lstFahrplan.Name = "lstFahrplan";
-      this.lstFahrplan.Size = new System.Drawing.Size(519, 404);
-      this.lstFahrplan.TabIndex = 5;
+      this.lstFahrplan.Size = new System.Drawing.Size(505, 390);
+      this.lstFahrplan.TabIndex = 6;
+      this.lstFahrplan.UseCompatibleStateImageBehavior = false;
+      this.lstFahrplan.View = System.Windows.Forms.View.Details;
       // 
       // lblVerbindungen
       // 
@@ -201,36 +231,6 @@
       this.lstVerbindungen.Name = "lstVerbindungen";
       this.lstVerbindungen.Size = new System.Drawing.Size(310, 452);
       this.lstVerbindungen.TabIndex = 7;
-      // 
-      // splitContainer4
-      // 
-      this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-      this.splitContainer4.Name = "splitContainer4";
-      // 
-      // splitContainer4.Panel1
-      // 
-      this.splitContainer4.Panel1.Controls.Add(this.lblFahrplan);
-      this.splitContainer4.Panel1.Controls.Add(this.lblVon);
-      this.splitContainer4.Panel1.Controls.Add(this.cmbVon);
-      // 
-      // splitContainer4.Panel2
-      // 
-      this.splitContainer4.Panel2.Controls.Add(this.cmbNach);
-      this.splitContainer4.Panel2.Controls.Add(this.lblNach);
-      this.splitContainer4.Size = new System.Drawing.Size(429, 103);
-      this.splitContainer4.SplitterDistance = 214;
-      this.splitContainer4.TabIndex = 0;
-      // 
-      // btnFahrplan
-      // 
-      this.btnFahrplan.Location = new System.Drawing.Point(14, 67);
-      this.btnFahrplan.Name = "btnFahrplan";
-      this.btnFahrplan.Size = new System.Drawing.Size(75, 23);
-      this.btnFahrplan.TabIndex = 0;
-      this.btnFahrplan.Text = "Suchen";
-      this.btnFahrplan.UseVisualStyleBackColor = true;
-      this.btnFahrplan.Click += new System.EventHandler(this.btnFahrplan_Click);
       // 
       // Form1
       // 
@@ -266,7 +266,6 @@
     #endregion
 
     private System.Windows.Forms.SplitContainer splitContainer1;
-    private System.Windows.Forms.ListBox lstFahrplan;
     private System.Windows.Forms.ComboBox cmbNach;
     private System.Windows.Forms.Label lblNach;
     private System.Windows.Forms.Label lblVon;
@@ -278,6 +277,7 @@
     private System.Windows.Forms.ComboBox cmbVon;
     private System.Windows.Forms.SplitContainer splitContainer4;
     private System.Windows.Forms.Button btnFahrplan;
+    private System.Windows.Forms.ListView lstFahrplan;
   }
 }
 

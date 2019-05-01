@@ -15,7 +15,6 @@ namespace SwissTransportGUI
   public partial class Form1 : Form
   {
     public Transport t = new Transport();
-    string[] verbindungsArray = new string[] { "Von", "Bis", "Abfahrtszeit", "Ankunftszeit", "Gleis"};
     public Form1()
     {
       InitializeComponent();
@@ -66,19 +65,53 @@ namespace SwissTransportGUI
     private void btnFahrplan_Click(object sender, EventArgs e)
     {
       Connections verbindungen = t.GetConnections(cmbVon.Text, cmbNach.Text);
+      string[] nächsteVerbindungen = new string[5];
+      int i = 0;
       foreach (Connection v in verbindungen.ConnectionList)
       {
-        //try
-        //{
-        //  //verbindungsListe = (v.From.Station.Name, v.To.Station.Name);
+        if (i <= 5)
+        {
+          
+        }
+        //  try
+        //  {
+        //    // lstFahrplan.Items.Add(v.From.Station.Name).SubItems.Add(v.To.Station.Name);
 
-        //  //lstFahrplan.Items.Add(v.Duration);
-        //}
-        //catch
-        //{
-        //  lstFahrplan.Items.Add("Keine Verbindung vorhanden");
+
+        //  }
+        //  catch
+        //  {
+        //    lstFahrplan.Items.Add("Keine Verbindung vorhanden");
         //}    
       }
+
+      lstFahrplan.View = View.Details;
+
+      lstFahrplan.Columns.Add("Abfahrtsort", 100);
+      lstFahrplan.Columns.Add("Ankunftsort", 100);
+      lstFahrplan.Columns.Add("Anfahrtszeit", 100);
+      lstFahrplan.Columns.Add("Ankunftszeit", 100);
+      lstFahrplan.Columns.Add("Ankunftszeit", 100);
+
+      ListViewItem item1 = new ListViewItem("item1", 0);
+      
+
+      ListViewItem item2 = new ListViewItem("item2", 1);
+      item2.SubItems.Add("21");
+      item2.SubItems.Add("22");
+      item2.SubItems.Add("23");
+
+      ListViewItem item3 = new ListViewItem("item3", 0);
+      item3.SubItems.Add("31");
+      item3.SubItems.Add("32");
+      item3.SubItems.Add("33");
+
+      ListViewItem item4 = new ListViewItem("item4", 0);
+      item4.SubItems.Add("31");
+      item4.SubItems.Add("32");
+      item4.SubItems.Add("33");
+
+      lstFahrplan.Items.AddRange(new ListViewItem[] { item1, item2, item3 });
     }
   }
 }
