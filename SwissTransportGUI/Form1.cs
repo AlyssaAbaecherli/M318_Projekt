@@ -27,6 +27,8 @@ namespace SwissTransportGUI
       lstVerbindungen.Columns.Add("Abfahrtsort", 83);
       lstVerbindungen.Columns.Add("Ankunftsort", 83);
       lstVerbindungen.Columns.Add("Platform", 70);
+
+      lstFahrplan.Columns.Add("Zug ID", 85);
     }
     private void StationSuchen(ListBox aktuelleListBox, TextBox aktuelleTextBox, string gesuchteStation)
     {
@@ -103,17 +105,38 @@ namespace SwissTransportGUI
       }
     }
 
-    private void FahrplantafelAnzeigen(Connections verbindungen)
+    private void FahrplantafelAnzeigen(string id)
     {
-      foreach (Connection v in verbindungen.ConnectionList)
+
+      StationBoardRoot fahrplanInhalt = t.GetStationBoard(txtStation.Text, id);
+      foreach (StationBoard sb in fahrplanInhalt.Entries)
       {
-        lstVerbindungen.Items.Add(v.From.RealtimeAvailability);
+        try
+        {
+          //DateTime abfahrt = DateTime.Parse(v.From.Departure);
+          //DateTime ankunft = DateTime.Parse(v.To.Arrival);
+          ////TimeSpan dauer = TimeSpan.Parse(v.Duration);
+
+          ListViewItem fahrplanTabelle = new ListViewItem((sb.Name), 0);
+          //fahrplanTabelle.SubItems.Add(ankunft.ToShortTimeString());
+          //fahrplanTabelle.SubItems.Add(v.From.Station.Name);
+          //fahrplanTabelle.SubItems.Add(v.To.Station.Name);
+          //fahrplanTabelle.SubItems.Add(v.From.Platform);
+
+
+          lstFahrplan.Items.AddRange(new ListViewItem[] { fahrplanTabelle });
+        }
+        catch
+        {
+          ListViewItem verbindungsTabelle = new ListViewItem("Verbindung konnte nicht angezeigt werden", 0);
+        }
       }
     }
 
-    private void StationWaehlen(ListBox aktuelleListBox, TextBox aktuelleTextBox)
+    private string StationWaehlen(ListBox aktuelleListBox, TextBox aktuelleTextBox)
     {
       aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
+      return aktuelleListBox.SelectedIndex.ToString();
     }
 
     private void txtVon_TextChanged(object sender, EventArgs e)
@@ -133,8 +156,8 @@ namespace SwissTransportGUI
 
     private void lstOrt_Click(object sender, EventArgs e)
     {
-      StationWaehlen(lstOrt, txtOrt);
-
+      string Bahnhofsid = StationWaehlen(lstStation, txtStation);
+      FahrplantafelAnzeigen(Bahnhofsid);
     }
 
     private void txtNach_TextChanged(object sender, EventArgs e)
@@ -144,20 +167,14 @@ namespace SwissTransportGUI
 
     private void txtOrt_TextChanged(object sender, EventArgs e)
     {
-      StationSuchen(lstOrt, txtOrt, txtOrt.Text);
+      StationSuchen(lstStation, txtStation, txtStation.Text);
     }
-    
+
     private void btnVerbindungen_Click(object sender, EventArgs e)
     {
       Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
       VerbindungstafelAnzeigen(verbindungen);
-      FahrplantafelAnzeigen(verbindungen);
-    }
-
-    private void btnFahrplan_Click(object sender, EventArgs e)
-    {
       
-
     }
   }
 }
