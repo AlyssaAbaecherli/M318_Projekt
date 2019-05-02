@@ -21,26 +21,27 @@ namespace SwissTransportGUI
 
       btnFahrplan.Enabled = false;
     }
-    private void StationSuchen(ComboBox aktuelleCombobox, string gesuchteStation) 
+    private void StationSuchen(ListBox aktuelleListBox, TextBox aktuelleTextBox , string gesuchteStation) 
     {
       Stations Station = t.GetStations(gesuchteStation);
 
-      aktuelleCombobox.DroppedDown = true;
-      aktuelleCombobox.Items.Clear();
-      int anzZeichen = aktuelleCombobox.Text.Length;
-      aktuelleCombobox.Select(anzZeichen, 0);
+      aktuelleListBox.Items.Clear();
+      //aktuelleTextBox.Select(aktuelleTextBox.Text.Length, 0);
 
       foreach (Station s in Station.StationList)
       {
         try
         {
-          aktuelleCombobox.Items.Add(s.Name);
+          if (s.Id != null)
+          {
+            aktuelleListBox.Items.Add(s.Name);
+          }
         }
         catch
         {
           //MessageBox.Show("Es wurde kein Resultat gefunden.");
         }
-        if(cmbVon.Text.Length != 0 && cmbNach.Text.Length != 0)
+        if (txtVon.Text.Length != 0 && txtNach.Text.Length != 0)
         {
           btnFahrplan.Enabled = true;
         }
@@ -51,29 +52,34 @@ namespace SwissTransportGUI
       }
     }
 
-
-    private void cmbVon_KeyDown(object sender, KeyEventArgs e)//kann nur jeweils 1 Buchstabe auf einmal gelöscht werden
+    private void StationWählen(ListBox aktuelleListBox, TextBox aktuelleTextBox)
     {
-      StationSuchen(cmbVon, cmbVon.Text);
+      aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
     }
-
-    private void cmbNach_KeyDown(object sender, KeyEventArgs e)//kann nur jeweils 1 Buchstabe auf einmal gelöscht werden
+    private void txtVon_TextChanged(object sender, EventArgs e)
     {
-      StationSuchen(cmbNach, cmbNach.Text);
+      StationSuchen(lstVon, txtVon, txtVon.Text);
+    }
+    private void lstVon_Click(object sender, EventArgs e)
+    {
+      StationWählen(lstVon, txtVon);
+    }
+    
+    private void txtNach_TextChanged(object sender, EventArgs e)
+    {
+      StationSuchen(lstNach, txtNach, txtNach.Text);
+    }
+    private void lstNach_Click(object sender, EventArgs e)
+    {
+      StationWählen(lstNach, txtNach);
     }
 
     private void btnFahrplan_Click(object sender, EventArgs e)
     {
-      Connections verbindungen = t.GetConnections(cmbVon.Text, cmbNach.Text);
-      string[] nächsteVerbindungen = new string[5];
-      int i = 0;
+      Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
       foreach (Connection v in verbindungen.ConnectionList)
       {
-        if (i <= 5)
-        {
-          
-        }
-        //  try
+        // try
         //  {
         //    // lstFahrplan.Items.Add(v.From.Station.Name).SubItems.Add(v.To.Station.Name);
 
