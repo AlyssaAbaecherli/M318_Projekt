@@ -28,7 +28,9 @@ namespace SwissTransportGUI
       lstVerbindungen.Columns.Add("Ankunftsort", 83);
       lstVerbindungen.Columns.Add("Platform", 70);
 
-      lstFahrplan.Columns.Add("Zug ID", 85);
+      lstFahrplan.Columns.Add("Zug", 85);
+      lstFahrplan.Columns.Add("Zielort", 85);
+      lstFahrplan.Columns.Add("Zeit", 85);
     }
     private void StationSuchen(ListBox aktuelleListBox, TextBox aktuelleTextBox, string gesuchteStation)
     {
@@ -71,7 +73,6 @@ namespace SwissTransportGUI
         {
           DateTime abfahrt = DateTime.Parse(v.From.Departure);
           DateTime ankunft = DateTime.Parse(v.To.Arrival);
-          //TimeSpan dauer = TimeSpan.Parse(v.Duration);
 
           ListViewItem verbindungsTabelle = new ListViewItem(abfahrt.ToShortTimeString(), 0);
           if (v.From.Delay > 1)
@@ -95,7 +96,6 @@ namespace SwissTransportGUI
           verbindungsTabelle.SubItems.Add(v.To.Station.Name);
           verbindungsTabelle.SubItems.Add(v.From.Platform);
 
-
           lstVerbindungen.Items.AddRange(new ListViewItem[] { verbindungsTabelle });
         }
         catch
@@ -107,28 +107,23 @@ namespace SwissTransportGUI
 
     private void FahrplantafelAnzeigen(string id)
     {
+      lstFahrplan.View = View.Details;
 
       StationBoardRoot fahrplanInhalt = t.GetStationBoard(txtStation.Text, id);
       foreach (StationBoard sb in fahrplanInhalt.Entries)
       {
         try
         {
-          //DateTime abfahrt = DateTime.Parse(v.From.Departure);
-          //DateTime ankunft = DateTime.Parse(v.To.Arrival);
-          ////TimeSpan dauer = TimeSpan.Parse(v.Duration);
 
           ListViewItem fahrplanTabelle = new ListViewItem((sb.Name), 0);
-          //fahrplanTabelle.SubItems.Add(ankunft.ToShortTimeString());
-          //fahrplanTabelle.SubItems.Add(v.From.Station.Name);
-          //fahrplanTabelle.SubItems.Add(v.To.Station.Name);
-          //fahrplanTabelle.SubItems.Add(v.From.Platform);
-
+          fahrplanTabelle.SubItems.Add(sb.To);
+          fahrplanTabelle.SubItems.Add(sb.Stop.Departure.ToShortTimeString());
 
           lstFahrplan.Items.AddRange(new ListViewItem[] { fahrplanTabelle });
         }
         catch
         {
-          ListViewItem verbindungsTabelle = new ListViewItem("Verbindung konnte nicht angezeigt werden", 0);
+          ListViewItem verbindungsTabelle = new ListViewItem("Fahrplan konnte nicht angezeigt werden", 0);
         }
       }
     }
