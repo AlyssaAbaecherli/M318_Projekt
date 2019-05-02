@@ -77,47 +77,56 @@ namespace SwissTransportGUI
     private void btnFahrplan_Click(object sender, EventArgs e)
     {
       Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
-      foreach (Connection v in verbindungen.ConnectionList)
-      {
-        // try
-        //  {
-        //    // lstFahrplan.Items.Add(v.From.Station.Name).SubItems.Add(v.To.Station.Name);
-
-
-        //  }
-        //  catch
-        //  {
-        //    lstFahrplan.Items.Add("Keine Verbindung vorhanden");
-        //}    
-      }
-
       lstFahrplan.View = View.Details;
 
+      lstFahrplan.Columns.Add("Abfahrtszeit", 80);
+      lstFahrplan.Columns.Add("Verspätung", 20);
+      lstFahrplan.Columns.Add("Ankunftszeit", 80);
+      lstFahrplan.Columns.Add("Verspätung", 20);
       lstFahrplan.Columns.Add("Abfahrtsort", 100);
       lstFahrplan.Columns.Add("Ankunftsort", 100);
-      lstFahrplan.Columns.Add("Anfahrtszeit", 100);
-      lstFahrplan.Columns.Add("Ankunftszeit", 100);
-      lstFahrplan.Columns.Add("Ankunftszeit", 100);
+      lstFahrplan.Columns.Add("Platform", 100);
 
-      ListViewItem item1 = new ListViewItem("item1", 0);
-      
+      foreach (Connection v in verbindungen.ConnectionList)
+      {
+        
+        try
+        {
+          DateTime abfahrt = DateTime.Parse(v.From.Departure);
+          DateTime ankunft = DateTime.Parse(v.To.Arrival);
+          //TimeSpan dauer = TimeSpan.Parse(v.Duration);
 
-      ListViewItem item2 = new ListViewItem("item2", 1);
-      item2.SubItems.Add("21");
-      item2.SubItems.Add("22");
-      item2.SubItems.Add("23");
 
-      ListViewItem item3 = new ListViewItem("item3", 0);
-      item3.SubItems.Add("31");
-      item3.SubItems.Add("32");
-      item3.SubItems.Add("33");
+          ListViewItem verbindungsTabelle = new ListViewItem(abfahrt.ToShortTimeString(), 0);
+          if(v.From.Delay > 1)
+          {
+            verbindungsTabelle.SubItems.Add("+" + v.From.Delay.ToString());
+          }
+          else
+          {
+            verbindungsTabelle.SubItems.Add(""());
+          }
+          verbindungsTabelle.SubItems.Add(ankunft.ToShortTimeString());
+          if (v.To.Delay > 1)
+          {
+            verbindungsTabelle.SubItems.Add("+" + v.To.Delay.ToString());
+          }
+          else
+          {
+            verbindungsTabelle.SubItems.Add(""());
+          }
+          verbindungsTabelle.SubItems.Add(v.From.Station.Name); 
+          verbindungsTabelle.SubItems.Add(v.To.Station.Name);
+          verbindungsTabelle.SubItems.Add(v.From.Platform);
 
-      ListViewItem item4 = new ListViewItem("item4", 0);
-      item4.SubItems.Add("31");
-      item4.SubItems.Add("32");
-      item4.SubItems.Add("33");
 
-      lstFahrplan.Items.AddRange(new ListViewItem[] { item1, item2, item3 });
+          lstFahrplan.Items.AddRange(new ListViewItem[] { verbindungsTabelle });
+          }
+         catch
+         {
+          ListViewItem verbindungsTabelle = new ListViewItem("Keine Verbindung vorhanden", 0);
+         }    
+      }
     }
   }
 }
