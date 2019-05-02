@@ -130,8 +130,15 @@ namespace SwissTransportGUI
 
     private string StationWaehlen(ListBox aktuelleListBox, TextBox aktuelleTextBox)
     {
-      aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
-      return aktuelleListBox.SelectedIndex.ToString();
+      try
+      {
+        aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
+        return aktuelleListBox.SelectedIndex.ToString();
+      }
+      catch
+      {
+        return null;
+      }
     }
 
     private void txtVon_TextChanged(object sender, EventArgs e)
@@ -190,6 +197,44 @@ namespace SwissTransportGUI
     {
       lstFahrplan.Items.Clear();
       txtStation.Text = "";
+    }
+
+    private void bewegen(KeyEventArgs e, ListBox lstBox, TextBox txtBox)
+    {
+      try
+      {
+        if (e.KeyCode == Keys.Down)
+        {
+          lstBox.SelectedIndex++;
+        }
+        else if (e.KeyCode == Keys.Up)
+        {
+          lstBox.SelectedIndex--;
+        }
+        else if (e.KeyCode == Keys.Enter)
+        {
+          StationWaehlen(lstBox, txtBox);
+        }
+      }
+      catch
+      {
+      }
+    }
+    
+
+    private void txtVon_KeyDown(object sender, KeyEventArgs e)
+    {
+      bewegen(e, lstVon, txtVon);
+    }
+
+    private void txtNach_KeyDown(object sender, KeyEventArgs e)
+    {
+      bewegen(e, lstNach, txtNach);
+    }
+
+    private void txtStation_KeyDown(object sender, KeyEventArgs e)
+    {
+      bewegen(e, lstStation, txtStation);
     }
   }
 }

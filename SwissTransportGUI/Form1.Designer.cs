@@ -31,6 +31,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.tabControl = new System.Windows.Forms.TabControl();
       this.verbindungSuchen = new System.Windows.Forms.TabPage();
+      this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
       this.btnLeeren = new System.Windows.Forms.Button();
       this.btnWechseln = new System.Windows.Forms.Button();
       this.txtNach = new System.Windows.Forms.TextBox();
@@ -42,11 +43,11 @@
       this.lblVon = new System.Windows.Forms.Label();
       this.lblNach = new System.Windows.Forms.Label();
       this.fahrplan = new System.Windows.Forms.TabPage();
+      this.button1 = new System.Windows.Forms.Button();
       this.lblStation = new System.Windows.Forms.Label();
       this.lstFahrplan = new System.Windows.Forms.ListView();
       this.lstStation = new System.Windows.Forms.ListBox();
       this.txtStation = new System.Windows.Forms.TextBox();
-      this.button1 = new System.Windows.Forms.Button();
       this.tabControl.SuspendLayout();
       this.verbindungSuchen.SuspendLayout();
       this.fahrplan.SuspendLayout();
@@ -67,6 +68,7 @@
       // 
       // verbindungSuchen
       // 
+      this.verbindungSuchen.Controls.Add(this.dateTimePicker1);
       this.verbindungSuchen.Controls.Add(this.btnLeeren);
       this.verbindungSuchen.Controls.Add(this.btnWechseln);
       this.verbindungSuchen.Controls.Add(this.txtNach);
@@ -84,6 +86,13 @@
       this.verbindungSuchen.TabIndex = 0;
       this.verbindungSuchen.Text = "Verbindung suchen";
       this.verbindungSuchen.UseVisualStyleBackColor = true;
+      // 
+      // dateTimePicker1
+      // 
+      this.dateTimePicker1.Location = new System.Drawing.Point(479, 107);
+      this.dateTimePicker1.Name = "dateTimePicker1";
+      this.dateTimePicker1.Size = new System.Drawing.Size(239, 22);
+      this.dateTimePicker1.TabIndex = 22;
       // 
       // btnLeeren
       // 
@@ -112,6 +121,7 @@
       this.txtNach.Size = new System.Drawing.Size(193, 22);
       this.txtNach.TabIndex = 2;
       this.txtNach.TextChanged += new System.EventHandler(this.txtNach_TextChanged);
+      this.txtNach.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNach_KeyDown);
       // 
       // lstNach
       // 
@@ -131,6 +141,7 @@
       this.txtVon.Size = new System.Drawing.Size(193, 22);
       this.txtVon.TabIndex = 1;
       this.txtVon.TextChanged += new System.EventHandler(this.txtVon_TextChanged);
+      this.txtVon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVon_KeyDown);
       // 
       // lstVon
       // 
@@ -201,6 +212,16 @@
       this.fahrplan.Text = "Fahrplan";
       this.fahrplan.UseVisualStyleBackColor = true;
       // 
+      // button1
+      // 
+      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+      this.button1.Location = new System.Drawing.Point(270, 40);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(50, 49);
+      this.button1.TabIndex = 2;
+      this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
+      // 
       // lblStation
       // 
       this.lblStation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -242,16 +263,7 @@
       this.txtStation.Size = new System.Drawing.Size(193, 22);
       this.txtStation.TabIndex = 1;
       this.txtStation.TextChanged += new System.EventHandler(this.txtOrt_TextChanged);
-      // 
-      // button1
-      // 
-      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-      this.button1.Location = new System.Drawing.Point(270, 40);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(50, 49);
-      this.button1.TabIndex = 2;
-      this.button1.UseVisualStyleBackColor = true;
-      this.button1.Click += new System.EventHandler(this.button1_Click);
+      this.txtStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_KeyDown);
       // 
       // Form1
       // 
@@ -290,6 +302,7 @@
     private System.Windows.Forms.Button btnWechseln;
     private System.Windows.Forms.Button btnLeeren;
     private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.DateTimePicker dateTimePicker1;
   }
 }
 
