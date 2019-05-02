@@ -37,7 +37,6 @@ namespace SwissTransportGUI
       Stations Station = t.GetStations(gesuchteStation);
 
       aktuelleListBox.Items.Clear();
-      //aktuelleTextBox.Select(aktuelleTextBox.Text.Length, 0);
 
       foreach (Station s in Station.StationList)
       {
@@ -130,8 +129,17 @@ namespace SwissTransportGUI
 
     private string StationWaehlen(ListBox aktuelleListBox, TextBox aktuelleTextBox)
     {
-      aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
-      return aktuelleListBox.SelectedIndex.ToString();
+      try
+      {
+        aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
+        string id = aktuelleListBox.SelectedIndex.ToString();
+        aktuelleListBox.Items.Clear();
+        return id;
+      }
+      catch
+      {
+        return null;
+      }
     }
 
     private void txtVon_TextChanged(object sender, EventArgs e)
@@ -151,6 +159,7 @@ namespace SwissTransportGUI
 
     private void lstOrt_Click(object sender, EventArgs e)
     {
+      lstFahrplan.Items.Clear();
       string Bahnhofsid = StationWaehlen(lstStation, txtStation);
       FahrplantafelAnzeigen(Bahnhofsid);
     }
@@ -167,6 +176,7 @@ namespace SwissTransportGUI
 
     private void btnVerbindungen_Click(object sender, EventArgs e)
     {
+      lstVerbindungen.Items.Clear();
       Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
       VerbindungstafelAnzeigen(verbindungen);
       
@@ -190,6 +200,44 @@ namespace SwissTransportGUI
     {
       lstFahrplan.Items.Clear();
       txtStation.Text = "";
+    }
+
+    private void bewegen(KeyEventArgs e, ListBox lstBox, TextBox txtBox)
+    {
+      try
+      {
+        if (e.KeyCode == Keys.Down)
+        {
+          lstBox.SelectedIndex++;
+        }
+        else if (e.KeyCode == Keys.Up)
+        {
+          lstBox.SelectedIndex--;
+        }
+        else if (e.KeyCode == Keys.Enter)
+        {
+          StationWaehlen(lstBox, txtBox);
+        }
+      }
+      catch
+      {
+      }
+    }
+    
+
+    private void txtVon_KeyDown(object sender, KeyEventArgs e)
+    {
+      bewegen(e, lstVon, txtVon);
+    }
+
+    private void txtNach_KeyDown(object sender, KeyEventArgs e)
+    {
+      bewegen(e, lstNach, txtNach);
+    }
+
+    private void txtStation_KeyDown(object sender, KeyEventArgs e)
+    {
+      bewegen(e, lstStation, txtStation);
     }
   }
 }

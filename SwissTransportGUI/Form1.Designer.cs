@@ -42,11 +42,11 @@
       this.lblVon = new System.Windows.Forms.Label();
       this.lblNach = new System.Windows.Forms.Label();
       this.fahrplan = new System.Windows.Forms.TabPage();
+      this.button1 = new System.Windows.Forms.Button();
       this.lblStation = new System.Windows.Forms.Label();
       this.lstFahrplan = new System.Windows.Forms.ListView();
       this.lstStation = new System.Windows.Forms.ListBox();
       this.txtStation = new System.Windows.Forms.TextBox();
-      this.button1 = new System.Windows.Forms.Button();
       this.tabControl.SuspendLayout();
       this.verbindungSuchen.SuspendLayout();
       this.fahrplan.SuspendLayout();
@@ -67,6 +67,7 @@
       // 
       // verbindungSuchen
       // 
+      this.verbindungSuchen.BackColor = System.Drawing.Color.Transparent;
       this.verbindungSuchen.Controls.Add(this.btnLeeren);
       this.verbindungSuchen.Controls.Add(this.btnWechseln);
       this.verbindungSuchen.Controls.Add(this.txtNach);
@@ -83,7 +84,6 @@
       this.verbindungSuchen.Size = new System.Drawing.Size(816, 523);
       this.verbindungSuchen.TabIndex = 0;
       this.verbindungSuchen.Text = "Verbindung suchen";
-      this.verbindungSuchen.UseVisualStyleBackColor = true;
       // 
       // btnLeeren
       // 
@@ -112,6 +112,7 @@
       this.txtNach.Size = new System.Drawing.Size(193, 22);
       this.txtNach.TabIndex = 2;
       this.txtNach.TextChanged += new System.EventHandler(this.txtNach_TextChanged);
+      this.txtNach.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNach_KeyDown);
       // 
       // lstNach
       // 
@@ -131,6 +132,7 @@
       this.txtVon.Size = new System.Drawing.Size(193, 22);
       this.txtVon.TabIndex = 1;
       this.txtVon.TextChanged += new System.EventHandler(this.txtVon_TextChanged);
+      this.txtVon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVon_KeyDown);
       // 
       // lstVon
       // 
@@ -188,6 +190,7 @@
       // 
       // fahrplan
       // 
+      this.fahrplan.BackColor = System.Drawing.Color.Transparent;
       this.fahrplan.Controls.Add(this.button1);
       this.fahrplan.Controls.Add(this.lblStation);
       this.fahrplan.Controls.Add(this.lstFahrplan);
@@ -199,7 +202,16 @@
       this.fahrplan.Size = new System.Drawing.Size(816, 523);
       this.fahrplan.TabIndex = 1;
       this.fahrplan.Text = "Fahrplan";
-      this.fahrplan.UseVisualStyleBackColor = true;
+      // 
+      // button1
+      // 
+      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+      this.button1.Location = new System.Drawing.Point(270, 40);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(50, 49);
+      this.button1.TabIndex = 2;
+      this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
       // lblStation
       // 
@@ -242,16 +254,7 @@
       this.txtStation.Size = new System.Drawing.Size(193, 22);
       this.txtStation.TabIndex = 1;
       this.txtStation.TextChanged += new System.EventHandler(this.txtOrt_TextChanged);
-      // 
-      // button1
-      // 
-      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-      this.button1.Location = new System.Drawing.Point(270, 40);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(50, 49);
-      this.button1.TabIndex = 2;
-      this.button1.UseVisualStyleBackColor = true;
-      this.button1.Click += new System.EventHandler(this.button1_Click);
+      this.txtStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_KeyDown);
       // 
       // Form1
       // 
