@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace SwissTransportGUI
 {
- 
+
   public partial class Form1 : Form
   {
     public Transport t = new Transport();
@@ -19,9 +19,16 @@ namespace SwissTransportGUI
     {
       InitializeComponent();
 
-      btnFahrplan.Enabled = false;
+      btnVerbindungen.Enabled = false;
+      lstVerbindungen.Columns.Add("Abfahrtszeit", 85);
+      lstVerbindungen.Columns.Add("Verspätung", 82);
+      lstVerbindungen.Columns.Add("Ankunftszeit", 85);
+      lstVerbindungen.Columns.Add("Verspätung", 82);
+      lstVerbindungen.Columns.Add("Abfahrtsort", 83);
+      lstVerbindungen.Columns.Add("Ankunftsort", 83);
+      lstVerbindungen.Columns.Add("Platform", 70);
     }
-    private void StationSuchen(ListBox aktuelleListBox, TextBox aktuelleTextBox , string gesuchteStation) 
+    private void StationSuchen(ListBox aktuelleListBox, TextBox aktuelleTextBox, string gesuchteStation)
     {
       Stations Station = t.GetStations(gesuchteStation);
 
@@ -43,90 +50,114 @@ namespace SwissTransportGUI
         }
         if (txtVon.Text.Length != 0 && txtNach.Text.Length != 0)
         {
-          btnFahrplan.Enabled = true;
+          btnVerbindungen.Enabled = true;
         }
         else
         {
-          btnFahrplan.Enabled = false;
+          btnVerbindungen.Enabled = false;
         }
       }
     }
-
-    private void StationWählen(ListBox aktuelleListBox, TextBox aktuelleTextBox)
+    private void VerbindungstafelAnzeigen(Connections verbindungen)
     {
-      aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
-    }
-    private void txtVon_TextChanged(object sender, EventArgs e)
-    {
-      StationSuchen(lstVon, txtVon, txtVon.Text);
-    }
-    private void lstVon_Click(object sender, EventArgs e)
-    {
-      StationWählen(lstVon, txtVon);
-    }
-    
-    private void txtNach_TextChanged(object sender, EventArgs e)
-    {
-      StationSuchen(lstNach, txtNach, txtNach.Text);
-    }
-    private void lstNach_Click(object sender, EventArgs e)
-    {
-      StationWählen(lstNach, txtNach);
-    }
-
-    private void btnFahrplan_Click(object sender, EventArgs e)
-    {
-      Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
-      lstFahrplan.View = View.Details;
-
-      lstFahrplan.Columns.Add("Abfahrtszeit", 80);
-      lstFahrplan.Columns.Add("Verspätung", 20);
-      lstFahrplan.Columns.Add("Ankunftszeit", 80);
-      lstFahrplan.Columns.Add("Verspätung", 20);
-      lstFahrplan.Columns.Add("Abfahrtsort", 100);
-      lstFahrplan.Columns.Add("Ankunftsort", 100);
-      lstFahrplan.Columns.Add("Platform", 100);
+      lstVerbindungen.View = View.Details;
 
       foreach (Connection v in verbindungen.ConnectionList)
       {
-        
+
         try
         {
           DateTime abfahrt = DateTime.Parse(v.From.Departure);
           DateTime ankunft = DateTime.Parse(v.To.Arrival);
           //TimeSpan dauer = TimeSpan.Parse(v.Duration);
 
-
           ListViewItem verbindungsTabelle = new ListViewItem(abfahrt.ToShortTimeString(), 0);
-          if(v.From.Delay > 1)
+          if (v.From.Delay > 1)
           {
-            verbindungsTabelle.SubItems.Add("+" + v.From.Delay.ToString());
+            verbindungsTabelle.SubItems.Add(v.From.Delay.ToString());
           }
           else
           {
-            verbindungsTabelle.SubItems.Add(""());
+            verbindungsTabelle.SubItems.Add("");
           }
           verbindungsTabelle.SubItems.Add(ankunft.ToShortTimeString());
           if (v.To.Delay > 1)
           {
-            verbindungsTabelle.SubItems.Add("+" + v.To.Delay.ToString());
+            verbindungsTabelle.SubItems.Add(v.To.Delay.ToString());
           }
           else
           {
-            verbindungsTabelle.SubItems.Add(""());
+            verbindungsTabelle.SubItems.Add("");
           }
-          verbindungsTabelle.SubItems.Add(v.From.Station.Name); 
+          verbindungsTabelle.SubItems.Add(v.From.Station.Name);
           verbindungsTabelle.SubItems.Add(v.To.Station.Name);
           verbindungsTabelle.SubItems.Add(v.From.Platform);
 
 
-          lstFahrplan.Items.AddRange(new ListViewItem[] { verbindungsTabelle });
-          }
-         catch
-         {
-          ListViewItem verbindungsTabelle = new ListViewItem("Keine Verbindung vorhanden", 0);
-         }    
+          lstVerbindungen.Items.AddRange(new ListViewItem[] { verbindungsTabelle });
+        }
+        catch
+        {
+          ListViewItem verbindungsTabelle = new ListViewItem("Verbindung konnte nicht angezeigt werden", 0);
+        }
       }
+    }
+
+    private void FahrplantafelAnzeigen(Connections verbindungen)
+    {
+      foreach (Connection v in verbindungen.ConnectionList)
+      {
+        lstVerbindungen.Items.Add(v.From.RealtimeAvailability);
+      }
+    }
+
+    private void StationWaehlen(ListBox aktuelleListBox, TextBox aktuelleTextBox)
+    {
+      aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
+    }
+
+    private void txtVon_TextChanged(object sender, EventArgs e)
+    {
+      StationSuchen(lstVon, txtVon, txtVon.Text);
+    }
+
+    private void lstVon_Click(object sender, EventArgs e)
+    {
+      StationWaehlen(lstVon, txtVon);
+    }
+
+    private void lstNach_Click(object sender, EventArgs e)
+    {
+      StationWaehlen(lstNach, txtNach);
+    }
+
+    private void lstOrt_Click(object sender, EventArgs e)
+    {
+      StationWaehlen(lstOrt, txtOrt);
+
+    }
+
+    private void txtNach_TextChanged(object sender, EventArgs e)
+    {
+      StationSuchen(lstNach, txtNach, txtNach.Text);
+    }
+
+    private void txtOrt_TextChanged(object sender, EventArgs e)
+    {
+      StationSuchen(lstOrt, txtOrt, txtOrt.Text);
+    }
+    
+    private void btnVerbindungen_Click(object sender, EventArgs e)
+    {
+      Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
+      VerbindungstafelAnzeigen(verbindungen);
+      FahrplantafelAnzeigen(verbindungen);
+    }
+
+    private void btnFahrplan_Click(object sender, EventArgs e)
+    {
+      
+
     }
   }
 }
