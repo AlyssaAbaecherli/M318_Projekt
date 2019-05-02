@@ -171,5 +171,25 @@ namespace SwissTransportGUI
       VerbindungstafelAnzeigen(verbindungen);
       
     }
+
+    private void btnWechseln_Click(object sender, EventArgs e)
+    {
+      string wechseln = txtNach.Text;
+      txtNach.Text = txtVon.Text;
+      txtVon.Text = wechseln;
+    }
+
+    private void btnLeeren_Click(object sender, EventArgs e)
+    {
+      lstVerbindungen.Items.Clear();
+      txtVon.Text = "";
+      txtNach.Text = "";
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+      lstFahrplan.Items.Clear();
+      txtStation.Text = "";
+    }
   }
 }

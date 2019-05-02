@@ -28,9 +28,11 @@
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.tabControl = new System.Windows.Forms.TabControl();
       this.verbindungSuchen = new System.Windows.Forms.TabPage();
-      this.fahrplan = new System.Windows.Forms.TabPage();
+      this.btnLeeren = new System.Windows.Forms.Button();
+      this.btnWechseln = new System.Windows.Forms.Button();
       this.txtNach = new System.Windows.Forms.TextBox();
       this.lstNach = new System.Windows.Forms.ListBox();
       this.txtVon = new System.Windows.Forms.TextBox();
@@ -39,10 +41,12 @@
       this.btnVerbindungen = new System.Windows.Forms.Button();
       this.lblVon = new System.Windows.Forms.Label();
       this.lblNach = new System.Windows.Forms.Label();
-      this.txtStation = new System.Windows.Forms.TextBox();
-      this.lstStation = new System.Windows.Forms.ListBox();
-      this.lstFahrplan = new System.Windows.Forms.ListView();
+      this.fahrplan = new System.Windows.Forms.TabPage();
       this.lblStation = new System.Windows.Forms.Label();
+      this.lstFahrplan = new System.Windows.Forms.ListView();
+      this.lstStation = new System.Windows.Forms.ListBox();
+      this.txtStation = new System.Windows.Forms.TextBox();
+      this.button1 = new System.Windows.Forms.Button();
       this.tabControl.SuspendLayout();
       this.verbindungSuchen.SuspendLayout();
       this.fahrplan.SuspendLayout();
@@ -63,6 +67,8 @@
       // 
       // verbindungSuchen
       // 
+      this.verbindungSuchen.Controls.Add(this.btnLeeren);
+      this.verbindungSuchen.Controls.Add(this.btnWechseln);
       this.verbindungSuchen.Controls.Add(this.txtNach);
       this.verbindungSuchen.Controls.Add(this.lstNach);
       this.verbindungSuchen.Controls.Add(this.txtVon);
@@ -79,36 +85,43 @@
       this.verbindungSuchen.Text = "Verbindung suchen";
       this.verbindungSuchen.UseVisualStyleBackColor = true;
       // 
-      // fahrplan
+      // btnLeeren
       // 
-      this.fahrplan.Controls.Add(this.lblStation);
-      this.fahrplan.Controls.Add(this.lstFahrplan);
-      this.fahrplan.Controls.Add(this.lstStation);
-      this.fahrplan.Controls.Add(this.txtStation);
-      this.fahrplan.Location = new System.Drawing.Point(4, 25);
-      this.fahrplan.Name = "fahrplan";
-      this.fahrplan.Padding = new System.Windows.Forms.Padding(3);
-      this.fahrplan.Size = new System.Drawing.Size(816, 523);
-      this.fahrplan.TabIndex = 1;
-      this.fahrplan.Text = "Fahrplan";
-      this.fahrplan.UseVisualStyleBackColor = true;
+      this.btnLeeren.Image = ((System.Drawing.Image)(resources.GetObject("btnLeeren.Image")));
+      this.btnLeeren.Location = new System.Drawing.Point(655, 52);
+      this.btnLeeren.Name = "btnLeeren";
+      this.btnLeeren.Size = new System.Drawing.Size(50, 49);
+      this.btnLeeren.TabIndex = 5;
+      this.btnLeeren.UseVisualStyleBackColor = true;
+      this.btnLeeren.Click += new System.EventHandler(this.btnLeeren_Click);
+      // 
+      // btnWechseln
+      // 
+      this.btnWechseln.Image = ((System.Drawing.Image)(resources.GetObject("btnWechseln.Image")));
+      this.btnWechseln.Location = new System.Drawing.Point(572, 52);
+      this.btnWechseln.Name = "btnWechseln";
+      this.btnWechseln.Size = new System.Drawing.Size(50, 49);
+      this.btnWechseln.TabIndex = 4;
+      this.btnWechseln.UseVisualStyleBackColor = true;
+      this.btnWechseln.Click += new System.EventHandler(this.btnWechseln_Click);
       // 
       // txtNach
       // 
-      this.txtNach.Location = new System.Drawing.Point(284, 64);
+      this.txtNach.Location = new System.Drawing.Point(258, 64);
       this.txtNach.Name = "txtNach";
       this.txtNach.Size = new System.Drawing.Size(193, 22);
-      this.txtNach.TabIndex = 20;
+      this.txtNach.TabIndex = 2;
       this.txtNach.TextChanged += new System.EventHandler(this.txtNach_TextChanged);
       // 
       // lstNach
       // 
       this.lstNach.FormattingEnabled = true;
       this.lstNach.ItemHeight = 16;
-      this.lstNach.Location = new System.Drawing.Point(284, 82);
+      this.lstNach.Location = new System.Drawing.Point(258, 82);
       this.lstNach.Name = "lstNach";
       this.lstNach.Size = new System.Drawing.Size(193, 68);
       this.lstNach.TabIndex = 21;
+      this.lstNach.TabStop = false;
       this.lstNach.Click += new System.EventHandler(this.lstNach_Click);
       // 
       // txtVon
@@ -116,7 +129,7 @@
       this.txtVon.Location = new System.Drawing.Point(29, 64);
       this.txtVon.Name = "txtVon";
       this.txtVon.Size = new System.Drawing.Size(193, 22);
-      this.txtVon.TabIndex = 18;
+      this.txtVon.TabIndex = 1;
       this.txtVon.TextChanged += new System.EventHandler(this.txtVon_TextChanged);
       // 
       // lstVon
@@ -127,6 +140,7 @@
       this.lstVon.Name = "lstVon";
       this.lstVon.Size = new System.Drawing.Size(193, 68);
       this.lstVon.TabIndex = 16;
+      this.lstVon.TabStop = false;
       this.lstVon.Click += new System.EventHandler(this.lstVon_Click);
       // 
       // lstVerbindungen
@@ -138,16 +152,17 @@
       this.lstVerbindungen.Name = "lstVerbindungen";
       this.lstVerbindungen.Size = new System.Drawing.Size(758, 318);
       this.lstVerbindungen.TabIndex = 14;
+      this.lstVerbindungen.TabStop = false;
       this.lstVerbindungen.UseCompatibleStateImageBehavior = false;
       this.lstVerbindungen.View = System.Windows.Forms.View.Details;
       // 
       // btnVerbindungen
       // 
-      this.btnVerbindungen.Location = new System.Drawing.Point(548, 64);
+      this.btnVerbindungen.Image = ((System.Drawing.Image)(resources.GetObject("btnVerbindungen.Image")));
+      this.btnVerbindungen.Location = new System.Drawing.Point(488, 52);
       this.btnVerbindungen.Name = "btnVerbindungen";
-      this.btnVerbindungen.Size = new System.Drawing.Size(110, 25);
-      this.btnVerbindungen.TabIndex = 11;
-      this.btnVerbindungen.Text = "Suchen";
+      this.btnVerbindungen.Size = new System.Drawing.Size(50, 49);
+      this.btnVerbindungen.TabIndex = 3;
       this.btnVerbindungen.UseVisualStyleBackColor = true;
       this.btnVerbindungen.Click += new System.EventHandler(this.btnVerbindungen_Click);
       // 
@@ -165,40 +180,26 @@
       // 
       this.lblNach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.lblNach.AutoSize = true;
-      this.lblNach.Location = new System.Drawing.Point(281, 42);
+      this.lblNach.Location = new System.Drawing.Point(255, 42);
       this.lblNach.Name = "lblNach";
       this.lblNach.Size = new System.Drawing.Size(45, 17);
       this.lblNach.TabIndex = 13;
       this.lblNach.Text = "Nach:";
       // 
-      // txtStation
+      // fahrplan
       // 
-      this.txtStation.Location = new System.Drawing.Point(29, 53);
-      this.txtStation.Name = "txtStation";
-      this.txtStation.Size = new System.Drawing.Size(193, 22);
-      this.txtStation.TabIndex = 22;
-      this.txtStation.TextChanged += new System.EventHandler(this.txtOrt_TextChanged);
-      // 
-      // lstStation
-      // 
-      this.lstStation.FormattingEnabled = true;
-      this.lstStation.ItemHeight = 16;
-      this.lstStation.Location = new System.Drawing.Point(29, 71);
-      this.lstStation.Name = "lstStation";
-      this.lstStation.Size = new System.Drawing.Size(193, 20);
-      this.lstStation.TabIndex = 23;
-      this.lstStation.Click += new System.EventHandler(this.lstOrt_Click);
-      // 
-      // lstFahrplan
-      // 
-      this.lstFahrplan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.lstFahrplan.Location = new System.Drawing.Point(29, 117);
-      this.lstFahrplan.Name = "lstFahrplan";
-      this.lstFahrplan.Size = new System.Drawing.Size(756, 385);
-      this.lstFahrplan.TabIndex = 24;
-      this.lstFahrplan.UseCompatibleStateImageBehavior = false;
+      this.fahrplan.Controls.Add(this.button1);
+      this.fahrplan.Controls.Add(this.lblStation);
+      this.fahrplan.Controls.Add(this.lstFahrplan);
+      this.fahrplan.Controls.Add(this.lstStation);
+      this.fahrplan.Controls.Add(this.txtStation);
+      this.fahrplan.Location = new System.Drawing.Point(4, 25);
+      this.fahrplan.Name = "fahrplan";
+      this.fahrplan.Padding = new System.Windows.Forms.Padding(3);
+      this.fahrplan.Size = new System.Drawing.Size(816, 523);
+      this.fahrplan.TabIndex = 1;
+      this.fahrplan.Text = "Fahrplan";
+      this.fahrplan.UseVisualStyleBackColor = true;
       // 
       // lblStation
       // 
@@ -209,6 +210,48 @@
       this.lblStation.Size = new System.Drawing.Size(56, 17);
       this.lblStation.TabIndex = 25;
       this.lblStation.Text = "Station:";
+      // 
+      // lstFahrplan
+      // 
+      this.lstFahrplan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.lstFahrplan.LabelEdit = true;
+      this.lstFahrplan.Location = new System.Drawing.Point(29, 162);
+      this.lstFahrplan.Name = "lstFahrplan";
+      this.lstFahrplan.Size = new System.Drawing.Size(756, 340);
+      this.lstFahrplan.TabIndex = 24;
+      this.lstFahrplan.TabStop = false;
+      this.lstFahrplan.UseCompatibleStateImageBehavior = false;
+      // 
+      // lstStation
+      // 
+      this.lstStation.FormattingEnabled = true;
+      this.lstStation.ItemHeight = 16;
+      this.lstStation.Location = new System.Drawing.Point(29, 71);
+      this.lstStation.Name = "lstStation";
+      this.lstStation.Size = new System.Drawing.Size(193, 68);
+      this.lstStation.TabIndex = 23;
+      this.lstStation.TabStop = false;
+      this.lstStation.Click += new System.EventHandler(this.lstOrt_Click);
+      // 
+      // txtStation
+      // 
+      this.txtStation.Location = new System.Drawing.Point(29, 53);
+      this.txtStation.Name = "txtStation";
+      this.txtStation.Size = new System.Drawing.Size(193, 22);
+      this.txtStation.TabIndex = 1;
+      this.txtStation.TextChanged += new System.EventHandler(this.txtOrt_TextChanged);
+      // 
+      // button1
+      // 
+      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+      this.button1.Location = new System.Drawing.Point(270, 40);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(50, 49);
+      this.button1.TabIndex = 2;
+      this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
       // Form1
       // 
@@ -244,6 +287,9 @@
     private System.Windows.Forms.TextBox txtStation;
     private System.Windows.Forms.ListView lstFahrplan;
     private System.Windows.Forms.Label lblStation;
+    private System.Windows.Forms.Button btnWechseln;
+    private System.Windows.Forms.Button btnLeeren;
+    private System.Windows.Forms.Button button1;
   }
 }
 
