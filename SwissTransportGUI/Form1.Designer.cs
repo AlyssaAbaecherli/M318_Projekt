@@ -31,6 +31,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.tabControl = new System.Windows.Forms.TabControl();
       this.verbindungSuchen = new System.Windows.Forms.TabPage();
+      this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
       this.btnLeeren = new System.Windows.Forms.Button();
       this.btnWechseln = new System.Windows.Forms.Button();
       this.txtNach = new System.Windows.Forms.TextBox();
@@ -84,6 +85,13 @@
       this.verbindungSuchen.Size = new System.Drawing.Size(816, 523);
       this.verbindungSuchen.TabIndex = 0;
       this.verbindungSuchen.Text = "Verbindung suchen";
+      // 
+      // dateTimePicker1
+      // 
+      this.dateTimePicker1.Location = new System.Drawing.Point(479, 107);
+      this.dateTimePicker1.Name = "dateTimePicker1";
+      this.dateTimePicker1.Size = new System.Drawing.Size(239, 22);
+      this.dateTimePicker1.TabIndex = 22;
       // 
       // btnLeeren
       // 
@@ -213,6 +221,16 @@
       this.button1.UseVisualStyleBackColor = true;
       this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
+      // button1
+      // 
+      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+      this.button1.Location = new System.Drawing.Point(270, 40);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(50, 49);
+      this.button1.TabIndex = 2;
+      this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
+      // 
       // lblStation
       // 
       this.lblStation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -293,6 +311,7 @@
     private System.Windows.Forms.Button btnWechseln;
     private System.Windows.Forms.Button btnLeeren;
     private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.DateTimePicker dateTimePicker1;
   }
 }
 
