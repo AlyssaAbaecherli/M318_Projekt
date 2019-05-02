@@ -31,7 +31,6 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.tabControl = new System.Windows.Forms.TabControl();
       this.verbindungSuchen = new System.Windows.Forms.TabPage();
-      this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
       this.btnLeeren = new System.Windows.Forms.Button();
       this.btnWechseln = new System.Windows.Forms.Button();
       this.txtNach = new System.Windows.Forms.TextBox();
@@ -43,11 +42,11 @@
       this.lblVon = new System.Windows.Forms.Label();
       this.lblNach = new System.Windows.Forms.Label();
       this.fahrplan = new System.Windows.Forms.TabPage();
-      this.button1 = new System.Windows.Forms.Button();
+      this.btnFahrplanLeeren = new System.Windows.Forms.Button();
       this.lblStation = new System.Windows.Forms.Label();
-      this.lstFahrplan = new System.Windows.Forms.ListView();
       this.lstStation = new System.Windows.Forms.ListBox();
       this.txtStation = new System.Windows.Forms.TextBox();
+      this.lstFahrplan = new System.Windows.Forms.ListView();
       this.tabControl.SuspendLayout();
       this.verbindungSuchen.SuspendLayout();
       this.fahrplan.SuspendLayout();
@@ -85,13 +84,6 @@
       this.verbindungSuchen.Size = new System.Drawing.Size(816, 523);
       this.verbindungSuchen.TabIndex = 0;
       this.verbindungSuchen.Text = "Verbindung suchen";
-      // 
-      // dateTimePicker1
-      // 
-      this.dateTimePicker1.Location = new System.Drawing.Point(479, 107);
-      this.dateTimePicker1.Name = "dateTimePicker1";
-      this.dateTimePicker1.Size = new System.Drawing.Size(239, 22);
-      this.dateTimePicker1.TabIndex = 22;
       // 
       // btnLeeren
       // 
@@ -199,9 +191,9 @@
       // fahrplan
       // 
       this.fahrplan.BackColor = System.Drawing.Color.Transparent;
-      this.fahrplan.Controls.Add(this.button1);
-      this.fahrplan.Controls.Add(this.lblStation);
       this.fahrplan.Controls.Add(this.lstFahrplan);
+      this.fahrplan.Controls.Add(this.btnFahrplanLeeren);
+      this.fahrplan.Controls.Add(this.lblStation);
       this.fahrplan.Controls.Add(this.lstStation);
       this.fahrplan.Controls.Add(this.txtStation);
       this.fahrplan.Location = new System.Drawing.Point(4, 25);
@@ -211,25 +203,15 @@
       this.fahrplan.TabIndex = 1;
       this.fahrplan.Text = "Fahrplan";
       // 
-      // button1
+      // btnFahrplanLeeren
       // 
-      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-      this.button1.Location = new System.Drawing.Point(270, 40);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(50, 49);
-      this.button1.TabIndex = 2;
-      this.button1.UseVisualStyleBackColor = true;
-      this.button1.Click += new System.EventHandler(this.button1_Click);
-      // 
-      // button1
-      // 
-      this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-      this.button1.Location = new System.Drawing.Point(270, 40);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(50, 49);
-      this.button1.TabIndex = 2;
-      this.button1.UseVisualStyleBackColor = true;
-      this.button1.Click += new System.EventHandler(this.button1_Click);
+      this.btnFahrplanLeeren.Image = ((System.Drawing.Image)(resources.GetObject("btnFahrplanLeeren.Image")));
+      this.btnFahrplanLeeren.Location = new System.Drawing.Point(270, 40);
+      this.btnFahrplanLeeren.Name = "btnFahrplanLeeren";
+      this.btnFahrplanLeeren.Size = new System.Drawing.Size(50, 49);
+      this.btnFahrplanLeeren.TabIndex = 2;
+      this.btnFahrplanLeeren.UseVisualStyleBackColor = true;
+      this.btnFahrplanLeeren.Click += new System.EventHandler(this.btnFahrplanLeeren_Click);
       // 
       // lblStation
       // 
@@ -240,19 +222,6 @@
       this.lblStation.Size = new System.Drawing.Size(56, 17);
       this.lblStation.TabIndex = 25;
       this.lblStation.Text = "Station:";
-      // 
-      // lstFahrplan
-      // 
-      this.lstFahrplan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.lstFahrplan.LabelEdit = true;
-      this.lstFahrplan.Location = new System.Drawing.Point(29, 162);
-      this.lstFahrplan.Name = "lstFahrplan";
-      this.lstFahrplan.Size = new System.Drawing.Size(756, 340);
-      this.lstFahrplan.TabIndex = 24;
-      this.lstFahrplan.TabStop = false;
-      this.lstFahrplan.UseCompatibleStateImageBehavior = false;
       // 
       // lstStation
       // 
@@ -273,6 +242,15 @@
       this.txtStation.TabIndex = 1;
       this.txtStation.TextChanged += new System.EventHandler(this.txtOrt_TextChanged);
       this.txtStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_KeyDown);
+      // 
+      // lstFahrplan
+      // 
+      this.lstFahrplan.Location = new System.Drawing.Point(29, 170);
+      this.lstFahrplan.Name = "lstFahrplan";
+      this.lstFahrplan.Size = new System.Drawing.Size(749, 329);
+      this.lstFahrplan.TabIndex = 26;
+      this.lstFahrplan.UseCompatibleStateImageBehavior = false;
+      this.lstFahrplan.View = System.Windows.Forms.View.Details;
       // 
       // Form1
       // 
@@ -306,12 +284,12 @@
     private System.Windows.Forms.TabPage fahrplan;
     private System.Windows.Forms.ListBox lstStation;
     private System.Windows.Forms.TextBox txtStation;
-    private System.Windows.Forms.ListView lstFahrplan;
     private System.Windows.Forms.Label lblStation;
     private System.Windows.Forms.Button btnWechseln;
     private System.Windows.Forms.Button btnLeeren;
-    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.Button btnFahrplanLeeren;
     private System.Windows.Forms.DateTimePicker dateTimePicker1;
+    private System.Windows.Forms.ListView lstFahrplan;
   }
 }
 

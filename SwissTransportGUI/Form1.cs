@@ -196,7 +196,7 @@ namespace SwissTransportGUI
       txtNach.Text = "";
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private void btnFahrplanLeeren_Click(object sender, EventArgs e)
     {
       lstFahrplan.Items.Clear();
       txtStation.Text = "";
