@@ -42,11 +42,11 @@
       this.lblVon = new System.Windows.Forms.Label();
       this.lblNach = new System.Windows.Forms.Label();
       this.fahrplan = new System.Windows.Forms.TabPage();
+      this.lstFahrplan = new System.Windows.Forms.ListView();
       this.btnFahrplanLeeren = new System.Windows.Forms.Button();
       this.lblStation = new System.Windows.Forms.Label();
       this.lstStation = new System.Windows.Forms.ListBox();
       this.txtStation = new System.Windows.Forms.TextBox();
-      this.lstFahrplan = new System.Windows.Forms.ListView();
       this.tabControl.SuspendLayout();
       this.verbindungSuchen.SuspendLayout();
       this.fahrplan.SuspendLayout();
@@ -203,6 +203,19 @@
       this.fahrplan.TabIndex = 1;
       this.fahrplan.Text = "Fahrplan";
       // 
+      // lstFahrplan
+      // 
+      this.lstFahrplan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.lstFahrplan.Location = new System.Drawing.Point(29, 170);
+      this.lstFahrplan.Name = "lstFahrplan";
+      this.lstFahrplan.Size = new System.Drawing.Size(749, 329);
+      this.lstFahrplan.TabIndex = 26;
+      this.lstFahrplan.TabStop = false;
+      this.lstFahrplan.UseCompatibleStateImageBehavior = false;
+      this.lstFahrplan.View = System.Windows.Forms.View.Details;
+      // 
       // btnFahrplanLeeren
       // 
       this.btnFahrplanLeeren.Image = ((System.Drawing.Image)(resources.GetObject("btnFahrplanLeeren.Image")));
@@ -242,15 +255,6 @@
       this.txtStation.TabIndex = 1;
       this.txtStation.TextChanged += new System.EventHandler(this.txtStation_TextChanged);
       this.txtStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_KeyDown);
-      // 
-      // lstFahrplan
-      // 
-      this.lstFahrplan.Location = new System.Drawing.Point(29, 170);
-      this.lstFahrplan.Name = "lstFahrplan";
-      this.lstFahrplan.Size = new System.Drawing.Size(749, 329);
-      this.lstFahrplan.TabIndex = 26;
-      this.lstFahrplan.UseCompatibleStateImageBehavior = false;
-      this.lstFahrplan.View = System.Windows.Forms.View.Details;
       // 
       // Form1
       // 

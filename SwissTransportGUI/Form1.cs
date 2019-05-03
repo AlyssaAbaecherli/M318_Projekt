@@ -21,9 +21,9 @@ namespace SwissTransportGUI
 
       btnVerbindungen.Enabled = false;
       lstVerbindungen.Columns.Add("Abfahrtszeit", 85);
-      lstVerbindungen.Columns.Add("Verspätung", 82);
+      lstVerbindungen.Columns.Add("Verspätung [min]", 90);
       lstVerbindungen.Columns.Add("Ankunftszeit", 85);
-      lstVerbindungen.Columns.Add("Verspätung", 82);
+      lstVerbindungen.Columns.Add("Verspätung [min]", 90);
       lstVerbindungen.Columns.Add("Abfahrtsort", 83);
       lstVerbindungen.Columns.Add("Ankunftsort", 83);
       lstVerbindungen.Columns.Add("Platform", 70);
@@ -31,12 +31,16 @@ namespace SwissTransportGUI
       lstFahrplan.Columns.Add("Zug", 85);
       lstFahrplan.Columns.Add("Zielort", 85);
       lstFahrplan.Columns.Add("Zeit", 85);
+
+      lstVon.Enabled = false;
+      lstNach.Enabled = false;
+      lstStation.Enabled = false;
     }
     private void StationSuchen(ListBox aktuelleListBox, TextBox aktuelleTextBox, string gesuchteStation)
     {
       Stations Station = t.GetStations(gesuchteStation);
 
-      aktuelleListBox.Items.Clear();////////////////////////////////////////////////////////////////////////
+      aktuelleListBox.Items.Clear();
 
       foreach (Station s in Station.StationList)
       {
@@ -112,21 +116,22 @@ namespace SwissTransportGUI
 
       if (fahrplanInhalt != null)
       {
-        foreach (StationBoard sb in fahrplanInhalt.Entries)
+        try
         {
-          try
+          foreach (StationBoard sb in fahrplanInhalt.Entries)
           {
+          
 
-            ListViewItem fahrplanTabelle = new ListViewItem((sb.Name), 0);
-            fahrplanTabelle.SubItems.Add(sb.To);
-            fahrplanTabelle.SubItems.Add(sb.Stop.Departure.ToShortTimeString());
+              ListViewItem fahrplanTabelle = new ListViewItem((sb.Name), 0);
+              fahrplanTabelle.SubItems.Add(sb.To);
+              fahrplanTabelle.SubItems.Add(sb.Stop.Departure.ToShortTimeString());
 
-            lstFahrplan.Items.AddRange(new ListViewItem[] { fahrplanTabelle });
+              lstFahrplan.Items.AddRange(new ListViewItem[] { fahrplanTabelle });
           }
-          catch
-          {
-            ListViewItem verbindungsTabelle = new ListViewItem("Fahrplan konnte nicht angezeigt werden", 0);
-          }
+        }
+        catch
+        {
+          ListViewItem verbindungsTabelle = new ListViewItem("Fahrplan konnte nicht angezeigt werden", 0);
         }
       }
     }
@@ -135,7 +140,10 @@ namespace SwissTransportGUI
     {
       try
       {
-        aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
+        if (lstStation.Text != "")
+        {
+          aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
+        }
         string id = aktuelleListBox.SelectedIndex.ToString();
         aktuelleListBox.Items.Clear();
         return id;
@@ -147,68 +155,79 @@ namespace SwissTransportGUI
     }
     private void FahrplanTafel()
     {
-      string Bahnhofsid = StationWaehlen(lstStation, txtStation);
-      FahrplantafelAnzeigen(Bahnhofsid);
+        string Bahnhofsid = StationWaehlen(lstStation, txtStation);
+        FahrplantafelAnzeigen(Bahnhofsid);
     }
 
     private void verbindungenSuchen()
     {
-      Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
-      VerbindungstafelAnzeigen(verbindungen);
+      if (txtVon.Text != "" && txtNach.Text != "")
+      {
+        Connections verbindungen = t.GetConnections(txtVon.Text, txtNach.Text);
+        VerbindungstafelAnzeigen(verbindungen);
+      }
     }
 
     private void bewegen(KeyEventArgs e, ListBox lstBox, TextBox txtBox)
     {
       try
       {
-        if (e.KeyCode == Keys.Down)
+        if (txtBox.Text == null)
         {
-          lstBox.SelectedIndex++;
+          lstBox.Enabled = false;
         }
-        else if (e.KeyCode == Keys.Up)
+        else
         {
-          lstBox.SelectedIndex--;
-        }
-        else if (e.KeyCode == Keys.Enter)///////////////////////////////
-        {
-          StationWaehlen(lstBox, txtBox);
-          if (lstBox == lstVon || lstBox == lstNach)
+          lstBox.Enabled = true;
+          if (e.KeyCode == Keys.Down)
           {
-            verbindungenSuchen();
+            lstBox.SelectedIndex++;
           }
-          else
+          else if (e.KeyCode == Keys.Up)
           {
-            FahrplanTafel();
+            lstBox.SelectedIndex--;
+          }
+          else if (e.KeyCode == Keys.Enter)
+          {
+            StationWaehlen(lstBox, txtBox);
+            if (lstBox == lstVon || lstBox == lstNach)
+            {
+              verbindungenSuchen();
+            }
+            else if (lstBox == lstStation)
+            {
+              FahrplanTafel();
+            }
           }
         }
       }
       catch
       {
+        //MessageBox.Show("Es wurde keine Station ausgewählt!");
       }
     }
-
-
-    ///////////////////////////////////////////////////////
-
 
     private void txtVon_TextChanged(object sender, EventArgs e)
     {
       StationSuchen(lstVon, txtVon, txtVon.Text);
     }
 
-    private void lstVon_Click(object sender, EventArgs e)
+    private void lstVon_Click(object sender, EventArgs e)///////
     {
       StationWaehlen(lstVon, txtVon);
+      verbindungenSuchen();
     }
 
-    private void lstNach_Click(object sender, EventArgs e)
+    private void lstNach_Click(object sender, EventArgs e)////////
     {
       StationWaehlen(lstNach, txtNach);
+      verbindungenSuchen();
     }
 
     private void lstStation_Click(object sender, EventArgs e)
     {
-      FahrplanTafel();
+        FahrplanTafel();
+
     }
 
     private void txtNach_TextChanged(object sender, EventArgs e)
@@ -231,6 +250,7 @@ namespace SwissTransportGUI
       string wechseln = txtNach.Text;
       txtNach.Text = txtVon.Text;
       txtVon.Text = wechseln;
+      verbindungenSuchen();
     }
 
     private void btnLeeren_Click(object sender, EventArgs e)

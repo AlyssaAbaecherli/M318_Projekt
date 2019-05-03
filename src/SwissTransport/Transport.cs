@@ -26,8 +26,6 @@ namespace SwissTransport
 
         public StationBoardRoot GetStationBoard(string station, string id)
         {
-      try
-      {
         station = System.Uri.EscapeDataString(station);
         id = System.Uri.EscapeDataString(id);
         var request = CreateWebRequest("http://transport.opendata.ch/v1/stationboard?station=" + station + "&id=" + id);
@@ -41,10 +39,6 @@ namespace SwissTransport
               JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
           return stationboard;
         }
-      }
-      catch
-      {
-      }
       return null;
       
         }
