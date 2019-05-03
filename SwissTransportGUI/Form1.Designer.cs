@@ -49,10 +49,9 @@
       this.txtStation = new System.Windows.Forms.TextBox();
       this.tabPage1 = new System.Windows.Forms.TabPage();
       this.webStationSuchen = new System.Windows.Forms.WebBrowser();
-      this.btnStationSuchenLeeren = new System.Windows.Forms.Button();
       this.lstStationSuchen = new System.Windows.Forms.ListBox();
       this.txtStationSuchen = new System.Windows.Forms.TextBox();
-      this.label1 = new System.Windows.Forms.Label();
+      this.lblStationSuchen = new System.Windows.Forms.Label();
       this.tabControl.SuspendLayout();
       this.verbindungSuchen.SuspendLayout();
       this.fahrplan.SuspendLayout();
@@ -268,10 +267,9 @@
       // 
       this.tabPage1.BackColor = System.Drawing.Color.Transparent;
       this.tabPage1.Controls.Add(this.webStationSuchen);
-      this.tabPage1.Controls.Add(this.btnStationSuchenLeeren);
       this.tabPage1.Controls.Add(this.lstStationSuchen);
       this.tabPage1.Controls.Add(this.txtStationSuchen);
-      this.tabPage1.Controls.Add(this.label1);
+      this.tabPage1.Controls.Add(this.lblStationSuchen);
       this.tabPage1.Location = new System.Drawing.Point(4, 25);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Size = new System.Drawing.Size(816, 523);
@@ -280,20 +278,15 @@
       // 
       // webStationSuchen
       // 
+      this.webStationSuchen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.webStationSuchen.Location = new System.Drawing.Point(29, 170);
       this.webStationSuchen.MinimumSize = new System.Drawing.Size(20, 20);
       this.webStationSuchen.Name = "webStationSuchen";
       this.webStationSuchen.Size = new System.Drawing.Size(749, 329);
       this.webStationSuchen.TabIndex = 31;
-      // 
-      // btnStationSuchenLeeren
-      // 
-      this.btnStationSuchenLeeren.Image = ((System.Drawing.Image)(resources.GetObject("btnStationSuchenLeeren.Image")));
-      this.btnStationSuchenLeeren.Location = new System.Drawing.Point(270, 40);
-      this.btnStationSuchenLeeren.Name = "btnStationSuchenLeeren";
-      this.btnStationSuchenLeeren.Size = new System.Drawing.Size(50, 49);
-      this.btnStationSuchenLeeren.TabIndex = 30;
-      this.btnStationSuchenLeeren.UseVisualStyleBackColor = true;
+      this.webStationSuchen.TabStop = false;
       // 
       // lstStationSuchen
       // 
@@ -312,15 +305,17 @@
       this.txtStationSuchen.Name = "txtStationSuchen";
       this.txtStationSuchen.Size = new System.Drawing.Size(193, 22);
       this.txtStationSuchen.TabIndex = 28;
+      this.txtStationSuchen.TextChanged += new System.EventHandler(this.txtStationSuchen_TextChanged);
+      this.txtStationSuchen.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStationSuchen_KeyDown);
       // 
-      // label1
+      // lblStationSuchen
       // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(26, 33);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(56, 17);
-      this.label1.TabIndex = 1;
-      this.label1.Text = "Station:";
+      this.lblStationSuchen.AutoSize = true;
+      this.lblStationSuchen.Location = new System.Drawing.Point(26, 33);
+      this.lblStationSuchen.Name = "lblStationSuchen";
+      this.lblStationSuchen.Size = new System.Drawing.Size(56, 17);
+      this.lblStationSuchen.TabIndex = 1;
+      this.lblStationSuchen.Text = "Station:";
       // 
       // Form1
       // 
@@ -363,10 +358,9 @@
     private System.Windows.Forms.TabPage tabPage1;
     private System.Windows.Forms.ListBox lstStation;
     private System.Windows.Forms.WebBrowser webStationSuchen;
-    private System.Windows.Forms.Button btnStationSuchenLeeren;
     private System.Windows.Forms.ListBox lstStationSuchen;
     private System.Windows.Forms.TextBox txtStationSuchen;
-    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Label lblStationSuchen;
   }
 }
 

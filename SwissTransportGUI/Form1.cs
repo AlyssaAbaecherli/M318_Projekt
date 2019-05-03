@@ -201,6 +201,10 @@ namespace SwissTransportGUI
             {
               FahrplanTafel();
             }
+            else if (lstBox == lstStationSuchen)
+            {
+              googleMaps(txtBox);
+            }
           }
         }
       }
@@ -208,6 +212,14 @@ namespace SwissTransportGUI
       {
         //MessageBox.Show("Es wurde keine Station ausgewählt!");
       }
+    }
+
+    private void googleMaps(TextBox txtBox)
+    {
+      Station station = t.GetStations(txtBox.Text).StationList.First();
+      string x = station.Coordinate.XCoordinate.ToString();
+      string y = station.Coordinate.YCoordinate.ToString();
+      webStationSuchen.Url = new System.Uri("https://www.google.com/maps?q=" + x.Replace(",", ".") + "," + y.Replace(",", "."), System.UriKind.Absolute);
     }
 
     #endregion
@@ -298,12 +310,28 @@ namespace SwissTransportGUI
 
 
     //Station suchen
-    private void lstStationSuchen_Click(object sender, EventArgs e)
+
+      //TextBoxen
+    private void txtStationSuchen_KeyDown(object sender, KeyEventArgs e)
     {
-          
+      Bewegen(e, lstStationSuchen, txtStationSuchen);
     }
 
+    private void txtStationSuchen_TextChanged(object sender, EventArgs e)
+    {
+      StationSuchen(lstStationSuchen, txtStationSuchen, txtStationSuchen.Text);
+    }
 
+      //ListBoxen
+    private void lstStationSuchen_Click(object sender, EventArgs e)
+    {
+      StationWaehlen(lstStationSuchen, txtStationSuchen);
+      googleMaps(txtStationSuchen);
+    }
+
+      //Buttons
     #endregion
+
+
   }
 }
