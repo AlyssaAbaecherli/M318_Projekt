@@ -209,32 +209,20 @@ namespace SwissTransportGUI
         //MessageBox.Show("Es wurde keine Station ausgewählt!");
       }
     }
-    
+
     #endregion
 
     #region Events
-
+    //Verbindung suchen
+      //TextBoxen
     private void txtVon_TextChanged(object sender, EventArgs e)
     {
       StationSuchen(lstVon, txtVon, txtVon.Text);
     }
 
-    private void lstVon_Click(object sender, EventArgs e)///////
+    private void txtVon_KeyDown(object sender, KeyEventArgs e)
     {
-      StationWaehlen(lstVon, txtVon);
-      VerbindungenSuchen();
-    }
-
-    private void lstNach_Click(object sender, EventArgs e)////////
-    {
-      StationWaehlen(lstNach, txtNach);
-      VerbindungenSuchen();
-    }
-
-    private void lstStation_Click(object sender, EventArgs e)
-    {
-        FahrplanTafel();
-
+      Bewegen(e, lstVon, txtVon);
     }
 
     private void txtNach_TextChanged(object sender, EventArgs e)
@@ -242,11 +230,25 @@ namespace SwissTransportGUI
       StationSuchen(lstNach, txtNach, txtNach.Text);
     }
 
-    private void txtStation_TextChanged(object sender, EventArgs e)
+    private void txtNach_KeyDown(object sender, KeyEventArgs e)
     {
-      StationSuchen(lstStation, txtStation, txtStation.Text);
+      Bewegen(e, lstNach, txtNach);
     }
 
+      //listBoxen
+    private void lstVon_Click(object sender, EventArgs e)
+    {
+      StationWaehlen(lstVon, txtVon);
+      VerbindungenSuchen();
+    }
+
+    private void lstNach_Click(object sender, EventArgs e)
+    {
+      StationWaehlen(lstNach, txtNach);
+      VerbindungenSuchen();
+    }
+
+      //Buttons
     private void btnVerbindungen_Click(object sender, EventArgs e)
     {
       VerbindungenSuchen();
@@ -267,27 +269,41 @@ namespace SwissTransportGUI
       txtNach.Text = "";
     }
 
+
+    //Fahrplan
+      //TextBoxen
+    private void txtStation_TextChanged(object sender, EventArgs e)
+    {
+      StationSuchen(lstStation, txtStation, txtStation.Text);
+    }
+    private void txtStation_KeyDown(object sender, KeyEventArgs e)
+    {
+      Bewegen(e, lstStation, txtStation);
+    }
+
+      //ListBoxen
+    private void lstStation_Click(object sender, EventArgs e)
+    {
+      FahrplanTafel();
+    }
+    
+      //Buttons
     private void btnFahrplanLeeren_Click(object sender, EventArgs e)
     {
       lstFahrplan.Items.Clear();
       txtStation.Text = "";
     }
 
-    private void txtVon_KeyDown(object sender, KeyEventArgs e)
+
+
+
+    //Station suchen
+    private void lstStationSuchen_Click(object sender, EventArgs e)
     {
-      Bewegen(e, lstVon, txtVon);
+          
     }
 
-    private void txtNach_KeyDown(object sender, KeyEventArgs e)
-    {
-      Bewegen(e, lstNach, txtNach);
-    }
 
-    private void txtStation_KeyDown(object sender, KeyEventArgs e)
-    {
-      Bewegen(e, lstStation, txtStation);
-    }
-    
     #endregion
   }
 }
