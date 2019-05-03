@@ -26,21 +26,27 @@ namespace SwissTransport
 
         public StationBoardRoot GetStationBoard(string station, string id)
         {
-            station = System.Uri.EscapeDataString(station);
-            id = System.Uri.EscapeDataString(id);
-            var request = CreateWebRequest("http://transport.opendata.ch/v1/stationboard?station=" + station + "&id=" + id);
-            var response = request.GetResponse();
-            var responseStream = response.GetResponseStream();
+      try
+      {
+        station = System.Uri.EscapeDataString(station);
+        id = System.Uri.EscapeDataString(id);
+        var request = CreateWebRequest("http://transport.opendata.ch/v1/stationboard?station=" + station + "&id=" + id);
+        var response = request.GetResponse();
+        var responseStream = response.GetResponseStream();
 
-            if (responseStream != null)
-            {
-                var readToEnd = new StreamReader(responseStream).ReadToEnd();
-                var stationboard =
-                    JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
-                return stationboard;
-            }
-
-            return null;
+        if (responseStream != null)
+        {
+          var readToEnd = new StreamReader(responseStream).ReadToEnd();
+          var stationboard =
+              JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
+          return stationboard;
+        }
+      }
+      catch
+      {
+      }
+      return null;
+      
         }
 
         public Connections GetConnections(string fromStation, string toStation)

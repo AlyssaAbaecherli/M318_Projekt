@@ -232,7 +232,7 @@
       this.lstStation.Size = new System.Drawing.Size(193, 68);
       this.lstStation.TabIndex = 23;
       this.lstStation.TabStop = false;
-      this.lstStation.Click += new System.EventHandler(this.lstOrt_Click);
+      this.lstStation.Click += new System.EventHandler(this.lstStation_Click);
       // 
       // txtStation
       // 
@@ -240,7 +240,7 @@
       this.txtStation.Name = "txtStation";
       this.txtStation.Size = new System.Drawing.Size(193, 22);
       this.txtStation.TabIndex = 1;
-      this.txtStation.TextChanged += new System.EventHandler(this.txtOrt_TextChanged);
+      this.txtStation.TextChanged += new System.EventHandler(this.txtStation_TextChanged);
       this.txtStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtStation_KeyDown);
       // 
       // lstFahrplan
@@ -288,7 +288,6 @@
     private System.Windows.Forms.Button btnWechseln;
     private System.Windows.Forms.Button btnLeeren;
     private System.Windows.Forms.Button btnFahrplanLeeren;
-    private System.Windows.Forms.DateTimePicker dateTimePicker1;
     private System.Windows.Forms.ListView lstFahrplan;
   }
 }
