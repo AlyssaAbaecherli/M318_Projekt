@@ -324,7 +324,7 @@
       this.ClientSize = new System.Drawing.Size(816, 551);
       this.Controls.Add(this.tabControl);
       this.Name = "Form1";
-      this.Text = "Form1";
+      this.Text = "Swiss Transport App";
       this.tabControl.ResumeLayout(false);
       this.verbindungSuchen.ResumeLayout(false);
       this.verbindungSuchen.PerformLayout();
