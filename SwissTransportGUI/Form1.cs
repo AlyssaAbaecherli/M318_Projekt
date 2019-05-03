@@ -36,6 +36,9 @@ namespace SwissTransportGUI
       lstNach.Enabled = false;
       lstStation.Enabled = false;
     }
+
+    #region Methoden
+
     private void StationSuchen(ListBox aktuelleListBox, TextBox aktuelleTextBox, string gesuchteStation)
     {
       Stations Station = t.GetStations(gesuchteStation);
@@ -140,7 +143,7 @@ namespace SwissTransportGUI
     {
       try
       {
-        if (lstStation.Text != "")
+        if (aktuelleListBox.Text != "")
         {
           aktuelleTextBox.Text = aktuelleListBox.SelectedItem.ToString();
         }
@@ -155,11 +158,11 @@ namespace SwissTransportGUI
     }
     private void FahrplanTafel()
     {
-        string Bahnhofsid = StationWaehlen(lstStation, txtStation);
-        FahrplantafelAnzeigen(Bahnhofsid);
+        string bahnhofsId = StationWaehlen(lstStation, txtStation);
+        FahrplantafelAnzeigen(bahnhofsId);
     }
 
-    private void verbindungenSuchen()
+    private void VerbindungenSuchen()
     {
       if (txtVon.Text != "" && txtNach.Text != "")
       {
@@ -168,7 +171,7 @@ namespace SwissTransportGUI
       }
     }
 
-    private void bewegen(KeyEventArgs e, ListBox lstBox, TextBox txtBox)
+    private void Bewegen(KeyEventArgs e, ListBox lstBox, TextBox txtBox)
     {
       try
       {
@@ -192,7 +195,7 @@ namespace SwissTransportGUI
             StationWaehlen(lstBox, txtBox);
             if (lstBox == lstVon || lstBox == lstNach)
             {
-              verbindungenSuchen();
+              VerbindungenSuchen();
             }
             else if (lstBox == lstStation)
             {
@@ -206,6 +209,10 @@ namespace SwissTransportGUI
         //MessageBox.Show("Es wurde keine Station ausgewählt!");
       }
     }
+    
+    #endregion
+
+    #region Events
 
     private void txtVon_TextChanged(object sender, EventArgs e)
     {
@@ -215,13 +222,13 @@ namespace SwissTransportGUI
     private void lstVon_Click(object sender, EventArgs e)///////
     {
       StationWaehlen(lstVon, txtVon);
-      verbindungenSuchen();
+      VerbindungenSuchen();
     }
 
     private void lstNach_Click(object sender, EventArgs e)////////
     {
       StationWaehlen(lstNach, txtNach);
-      verbindungenSuchen();
+      VerbindungenSuchen();
     }
 
     private void lstStation_Click(object sender, EventArgs e)
@@ -242,7 +249,7 @@ namespace SwissTransportGUI
 
     private void btnVerbindungen_Click(object sender, EventArgs e)
     {
-      verbindungenSuchen();
+      VerbindungenSuchen();
     }
 
     private void btnWechseln_Click(object sender, EventArgs e)
@@ -250,7 +257,7 @@ namespace SwissTransportGUI
       string wechseln = txtNach.Text;
       txtNach.Text = txtVon.Text;
       txtVon.Text = wechseln;
-      verbindungenSuchen();
+      VerbindungenSuchen();
     }
 
     private void btnLeeren_Click(object sender, EventArgs e)
@@ -268,17 +275,19 @@ namespace SwissTransportGUI
 
     private void txtVon_KeyDown(object sender, KeyEventArgs e)
     {
-      bewegen(e, lstVon, txtVon);
+      Bewegen(e, lstVon, txtVon);
     }
 
     private void txtNach_KeyDown(object sender, KeyEventArgs e)
     {
-      bewegen(e, lstNach, txtNach);
+      Bewegen(e, lstNach, txtNach);
     }
 
     private void txtStation_KeyDown(object sender, KeyEventArgs e)
     {
-      bewegen(e, lstStation, txtStation);
+      Bewegen(e, lstStation, txtStation);
     }
+    
+    #endregion
   }
 }
